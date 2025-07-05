@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-# Script to install or uninstall Cursor IDE on Arch Linux (Wayland)
 
 read -p "What do you want to do? (install/uninstall): " action
 action=$(echo "$action" | tr '[:upper:]' '[:lower:]')
@@ -53,12 +52,11 @@ elif [[ "$action" == "uninstall" ]]; then
             echo "Unsupported method. Proceeding with general cleanup."
             ;;
     esac
-    # General cleanup
     rm -rf ~/.config/Cursor ~/.cache/Cursor ~/.local/share/Cursor
     rm -f ~/.local/share/applications/cursor.desktop
     rm -rf ~/.local/share/icons/hicolor/*/apps/cursor.png
     sudo rm -rf /opt/cursor
-    # Additional cleanup for more thorough removal
+
     sudo rm -rf /usr/share/applications/cursor.desktop
     sudo rm -rf /usr/local/bin/cursor
     sudo rm -rf /usr/bin/cursor
@@ -67,14 +65,12 @@ else
     echo "Invalid option. Use 'install' or 'uninstall'."
 fi
 
-# Ask if user wants to open Cursor IDE to test
 read -p "Do you want to try opening Cursor IDE to verify the action? (yes/no): " open_cursor
 open_cursor=$(echo "$open_cursor" | tr '[:upper:]' '[:lower:]')
 
 if [[ "$open_cursor" == "yes" || "$open_cursor" == "y" ]]; then
     echo "Attempting to open Cursor IDE..."
     
-    # Try different common ways to launch cursor
     if command -v cursor >/dev/null 2>&1; then
         echo "Found 'cursor' command, launching..."
         cursor &
